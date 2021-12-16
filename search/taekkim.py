@@ -1,5 +1,3 @@
-import timeit
-
 def ttoboki():
 	n, m = map(int, input().split())
 	d = sorted(map(int, input().split()), reverse=True)
@@ -19,6 +17,15 @@ def ttoboki():
 		else:
 			d_max -= 1
 
-# t1 = timeit.timeit('ttoboki()', setup='from __main__ import ttoboki')
-# print(t1)
 
+def boopoom():
+	n = int(input())
+	shop = list(map(int, input().split()))
+	m = int(input())
+	cus = map(int, input().split())
+
+	for c in cus:
+		if c in shop:
+			print('yes', end=' ')	
+		else:
+			print('no', end=' ')
