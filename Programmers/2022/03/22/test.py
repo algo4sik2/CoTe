@@ -1,6 +1,5 @@
 from audioop import reverse
 
-
 x1 = ["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"],	[2,3,4],	["AC", "ACDE", "BCFG", "CDE"]
 x2 = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"],	[2,3,5],	["ACD", "AD", "ADE", "CD", "XYZ"]
 x3 = ["XYZ", "XWY", "WXA"],	[2,3,4],	["WX", "XY"]
@@ -14,7 +13,7 @@ def dfs_num(lst, num, eliments=[]):
         yield from dfs_num(lst[i+1:], num, eliments)
         eliments.pop()
 
-def most_common(orders, num):
+def most_common(orders, num) -> list:
     max_menu = {}
     for foods in orders:
         for i in dfs_num(sorted(foods), num):
@@ -25,6 +24,7 @@ def most_common(orders, num):
 
 
 def solution(orders, course):
+
     answer = []
     for i in course:
         answer += most_common(orders, i)
