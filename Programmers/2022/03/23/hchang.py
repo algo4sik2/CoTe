@@ -43,6 +43,32 @@ from functools import reduce
 def setsum(setlist) -> set:
     return reduce(lambda x,y: x | y, setlist, set())
 
+# def bisearch_l(lst: list, find_num: int) -> int:
+#     start = 0
+#     end = len(lst) - 1
+#     index = (start + end)//2
+
+#     while start < end:
+#         if lst[index][0]<find_num:
+#             start = index + 1
+#         elif lst[index][0]>=find_num:
+#             end = index
+#         index = (start + end)//2
+#     return index
+def bisearch_r(lst: list, find_num: int) -> int:
+    start = 0
+    end = len(lst) - 1
+    index = (start + end)//2
+    
+    while start < end:
+        if lst[index][0]<=find_num:
+            start = index
+        elif lst[index][0]>find_num:
+            end = index-1
+        index = (start + end + 1)//2
+    return index
+
+
 def solution(info, query):
     answer = []
     db = defaultdict(set)
@@ -66,35 +92,11 @@ def solution(info, query):
                 for i in q_list:
                     q_num &= db[i] # {1,2,3} & {2,3,4} = {2,3} ->  |  = {1,2,3,4}
             else: q_num = setsum(db.values())
-            q_num = sorted(q_num,reverse=True)
+            q_num = sorted(q_num)
             query_dict[q_string]=q_num
-        start = 0
-        len_ = end = len(q_num)
-        if len_==0:
-            answer.append(len_)
-            continue
         score = int(score)
-        check = False
-        index = 0
-        
-        while True:
-            if check:
-                index += 1
-                if index==len_: break
-                if q_num[index][0]!=score:
-                    break
-                continue
-            index = (start+end)//2
-            # print(index)
-            if q_num[index][0]>=score and (len_ <= index+1 or q_num[index+1][0]<score):
-                check = True
-            elif end == 0:
-                break
-            elif q_num[index][0]<score:
-                end = index
-            else:
-                start = index
-        answer.append(index)
+
+        answer.append(bisearch_r(q_num,score))
     return answer
 
 # def solution(info, query):
