@@ -1,5 +1,6 @@
 from itertools import permutations
 import re
+from time import time
 with open('data/hchang','r') as f:
     exp, answer = f.read().split()
 # def go(exp, op):
